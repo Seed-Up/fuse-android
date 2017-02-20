@@ -17,6 +17,9 @@ CCFLAGS = -shared -ffunction-sections -funwind-tables -fstack-protector-strong \
 	-DFUSE_USE_VERSION=26 -D__MULTI_THREAD -fPIC -Wa,--noexecstack -Wformat -Werror=format-security
 CC=/usr/local/android-ndk-r12b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc
 
+
+export PATH := $(NDK_HOME)/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/:$(PATH)
+
 NAME = libfuse.so
 SRCS_DIR = jni/
 OBJS_DIR = ./obj/local/armeabi/objs-debug/fuse/
@@ -39,4 +42,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 clean:
 	rm $(addprefix $(OBJS_DIR),$(OBJS))
 
-re: clean all
+fclean: clean
+	rm $(NAME)
+
+re: fclean all
